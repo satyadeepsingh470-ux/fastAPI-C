@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Order Tracker</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 35%, #f093fb 70%, #f5576c 100%);
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      padding: 48px 16px;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .card {
+      background: rgba(255,255,255,0.97);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      padding: 32px;
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    h1 {
+      font-size: 22px; margin: 0 0 4px;
+      background: linear-gradient(90deg, #764ba2, #f5576c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+    .sub { color: #999; font-size: 13px; margin-bottom: 28px; font-weight: 600; }
+    label { display: block; font-size: 13px; font-weight: 700; color: #333; margin-bottom: 6px; }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 2px solid #e2e4ec;
+      font-size: 15px;
+      margin-bottom: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: #764ba2; }
+    .track-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(118,75,162,0.35);
+      transition: transform 0.15s;
+      margin-bottom: 28px;
+    }
+    .track-btn:hover { transform: translateY(-1px); }
+    .divider {
+      text-align: center;
+      font-size: 12px;
+      color: #bbb;
+      font-weight: 700;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: #eee;
+    }
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+    a.admin-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #f093fb, #f5576c);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(245,87,108,0.35);
+      transition: transform 0.15s;
+    }
+    a.admin-link:hover { transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Order Tracker</h1>
+    <div class="sub">Live order status, powered by WebSockets</div>
+
+    <label for="orderId">Track an order</label>
+    <input id="orderId" type="text" placeholder="Enter order ID e.g. 123" />
+    <button class="track-btn" id="trackBtn">Track order</button>
+
+    <div class="divider">OR</div>
+
+    <a class="admin-link" href="/admin">🛠️ Open admin panel</a>
+  </div>
+
+  <script>
+    const input = document.getElementById("orderId");
+    const btn = document.getElementById("trackBtn");
+    function go() {
+      const id = input.value.trim();
+      if (id) window.location.href = `/track/${encodeURIComponent(id)}`;
+    }
+    btn.addEventListener("click", go);
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
+  </script>
+</body>
+</html>
