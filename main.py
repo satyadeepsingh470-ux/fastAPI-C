@@ -165,7 +165,8 @@ async def tracking_page(order_id: str):
         }}
 
         function connect() {{
-          const ws = new WebSocket(`ws://${{location.host}}/ws/orders/${{order}}`);
+          const proto = location.protocol === "https:" ? "wss:" : "ws:";
+          const ws = new WebSocket(`${{proto}}//${{location.host}}/ws/orders/${{order}}`);
           ws.onopen = () => {{
             dot.className = "dot live";
             connText.textContent = "live";
